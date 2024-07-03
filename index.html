@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Creative Apps</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #4CAF50;
+            color: white;
+            padding: 1em 0;
+            text-align: center;
+        }
+        main {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 20px;
+        }
+        .intro {
+            max-width: 800px;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .apps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            width: 100%;
+            max-width: 1200px;
+        }
+        .app-card {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            text-align: center;
+            padding: 20px;
+        }
+        .app-card h3 {
+            margin: 0;
+            color: #4CAF50;
+        }
+        .app-card p {
+            margin: 10px 0;
+        }
+        .app-card a {
+            color: #4CAF50;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .app-card a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Our Creative Apps</h1>
+    </header>
+    <main>
+        <section class="intro">
+            <h2>About This Project</h2>
+            <p>This collection of apps represents the collaborative efforts of kids and the power of AI to bring their ideas to life. Each app here is a unique creation, showcasing creativity, innovation, and fun.</p>
+        </section>
+        <section class="apps">
+            <div class="app-card">
+                <h3>Princess Matching Game</h3>
+                <p>A delightful game where you match pairs of princesses. Perfect for memory training and fun!</p>
+                <a href="./princess-matching-game/index.html">Play Now</a>
+            </div>
+            <!-- Add more app cards here as you create more apps -->
+        </section>
+    </main>
+</body>
+</html>

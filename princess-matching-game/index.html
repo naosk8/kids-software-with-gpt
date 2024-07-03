@@ -1,0 +1,350 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Card Game</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        margin: 0;
+        background-color: #f5f5f5;
+        overflow: hidden; /* Disable scrolling */
+        position: relative;
+      }
+      h1 {
+        font-size: 18px;
+        margin-bottom: 8px;
+      }
+      h2 {
+        font-size: 18px;
+      }
+      .game-board {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        grid-gap: 5px;
+        width: 90vw;
+        max-width: 90vw; /* Match viewport width */
+        height: 70vh; /* Match viewport height */
+        max-height: 70vh; /* Match viewport height */
+      }
+      .card {
+        width: 100%;
+        height: 100%;
+        background-color: #fff;
+        border: 1px solid #ccc;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        overflow: hidden;
+        position: relative;
+        transition:
+          transform 0.3s ease,
+          background-color 0.3s ease;
+      }
+      .card img {
+        position: absolute;
+        width: 90%;
+        height: 90%;
+        object-fit: contain;
+        transform: scale(1.2);
+        display: none;
+      }
+      .card.flipped img {
+        display: block;
+      }
+      .card.flipped {
+        background-color: #ffeb3b;
+      }
+      .card.matched {
+        background-color: #b3e5fc;
+        pointer-events: none;
+        transform: scale(1.1);
+      }
+      @keyframes happyAnimation {
+        0% {
+          transform: scale(1);
+          background-color: #b3e5fc;
+        }
+        50% {
+          transform: scale(1.2);
+          background-color: #ffeb3b;
+        }
+        100% {
+          transform: scale(1);
+          background-color: #b3e5fc;
+        }
+      }
+      .happy {
+        animation: happyAnimation 0.5s ease;
+      }
+      .player-board {
+        display: flex;
+        justify-content: space-around;
+        width: 100%;
+        margin: 5px 0; /* Reduce margin */
+      }
+      .player {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      .active-player {
+        color: red;
+        font-weight: bold;
+      }
+      /* Fireworks styles */
+      @keyframes fireworks {
+        0% {
+          opacity: 1;
+          transform: scale(0);
+        }
+        100% {
+          opacity: 0;
+          transform: scale(1);
+        }
+      }
+      .firework {
+        position: absolute;
+        background-color: red;
+        border-radius: 50%;
+        animation: fireworks 3s linear infinite;
+        animation-delay: calc(-3s * var(--i)); /* Random delay */
+      }
+
+      .popup {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: white;
+        padding: 20px;
+        border: 2px solid #ccc;
+        z-index: 10;
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Princess Matching Game</h1>
+    <div class="player-board" id="player-board"></div>
+    <div class="game-board" id="game-board"></div>
+    <div id="popup" class="popup" style="display: none"></div>
+
+    <script>
+      const images = [
+        "princess/1.png",
+        "princess/2.png",
+        "princess/3.png",
+        "princess/4.png",
+        "princess/5.png",
+        "princess/6.png",
+        "princess/7.png",
+        "princess/8.png",
+        "princess/9.png",
+        "princess/10.png",
+      ];
+      const cardImages = [...images, ...images]; // Create 2 sets
+      let shuffledImages, firstCard, secondCard;
+      let lockBoard = false;
+      let currentPlayer = 0;
+      const players = [];
+      const numPlayers = parseInt(
+        prompt("Enter the number of players (1-4):", "2"),
+      );
+
+      const gameBoard = document.getElementById("game-board");
+      const playerBoard = document.getElementById("player-board");
+      const popup = document.getElementById("popup");
+
+      function initGame() {
+        for (let i = 0; i < numPlayers; i++) {
+          players.push({ score: 0 });
+          const playerDiv = document.createElement("div");
+          playerDiv.classList.add("player");
+          playerDiv.id = `player${i}`;
+          playerDiv.innerHTML = `<h2>Player ${
+            i + 1
+          }</h2><p>Score: <span id="player${i}-score">0</span></p>`;
+          playerBoard.appendChild(playerDiv);
+        }
+
+        document
+          .getElementById(`player${currentPlayer}`)
+          .classList.add("active-player");
+
+        resetGame();
+      }
+
+      function createCard(image) {
+        const card = document.createElement("div");
+        card.classList.add("card");
+        const img = document.createElement("img");
+        img.src = image;
+        card.appendChild(img);
+
+        card.addEventListener("click", () => {
+          if (lockBoard) return;
+          if (card === firstCard) return;
+
+          card.classList.add("flipped");
+
+          if (!firstCard) {
+            firstCard = card;
+          } else {
+            secondCard = card;
+            checkForMatch();
+          }
+        });
+
+        return card;
+      }
+
+      function checkForMatch() {
+        if (firstCard.innerHTML === secondCard.innerHTML) {
+          firstCard.classList.add("matched");
+          secondCard.classList.add("matched");
+          firstCard.classList.add("happy");
+          secondCard.classList.add("happy");
+          setTimeout(() => {
+            firstCard.classList.remove("happy");
+            secondCard.classList.remove("happy");
+          }, 500);
+          players[currentPlayer].score += 2;
+          document.getElementById(`player${currentPlayer}-score`).textContent =
+            players[currentPlayer].score;
+          resetBoard();
+          checkGameEnd();
+        } else {
+          lockBoard = true;
+          setTimeout(() => {
+            firstCard.classList.remove("flipped");
+            secondCard.classList.remove("flipped");
+            resetBoard();
+            switchPlayer();
+          }, 1500);
+        }
+      }
+
+      function resetBoard() {
+        [firstCard, secondCard] = [null, null];
+        lockBoard = false;
+      }
+
+      function switchPlayer() {
+        document
+          .getElementById(`player${currentPlayer}`)
+          .classList.remove("active-player");
+        currentPlayer = (currentPlayer + 1) % numPlayers;
+        document
+          .getElementById(`player${currentPlayer}`)
+          .classList.add("active-player");
+      }
+
+      function checkGameEnd() {
+        const matchedCards = document.querySelectorAll(".card.matched").length;
+        if (matchedCards === cardImages.length) {
+          let maxScore = 0;
+          let winners = [];
+          for (let i = 0; i < players.length; i++) {
+            if (players[i].score > maxScore) {
+              maxScore = players[i].score;
+              winners = [i]; // 新しい勝者を設定
+            } else if (players[i].score === maxScore) {
+              winners.push(i); // 同点の勝者を追加
+            }
+          }
+          setTimeout(() => {
+            if (winners.length === 1) {
+              showPopup(`Player ${winners[0] + 1} wins! Congratulations!`);
+            } else {
+              const winnerNames = winners
+                .map((winner) => `Player ${winner + 1}`)
+                .join(", ");
+              showPopup(`It's a tie between ${winnerNames}!`);
+            }
+          }, 500);
+        }
+      }
+
+      function resetGame() {
+        // Clear existing cards
+        gameBoard.innerHTML = "";
+        // Reset player scores
+        players.forEach((player, index) => {
+          player.score = 0;
+          document.getElementById(`player${index}-score`).textContent =
+            player.score;
+        });
+        // Shuffle and deal cards
+        shuffledImages = cardImages.sort(() => 0.5 - Math.random());
+        shuffledImages.forEach((image) => {
+          gameBoard.appendChild(createCard(image));
+        });
+        // Reset current player
+        currentPlayer = 0;
+        document.querySelectorAll(".player").forEach((player, index) => {
+          player.classList.remove("active-player");
+          if (index === currentPlayer) {
+            player.classList.add("active-player");
+          }
+        });
+      }
+
+      function showPopup(message) {
+        popup.innerHTML = message;
+        popup.style.display = "block";
+        createFireworks();
+        setTimeout(() => {
+          document.body.addEventListener("click", hidePopup);
+        }, 500); // Delay to ignore the first click
+      }
+
+      function hidePopup() {
+        popup.style.display = "none";
+        clearFireworks();
+        document.body.removeEventListener("click", hidePopup);
+        resetGame();
+      }
+
+      function createFireworks() {
+        for (let i = 0; i < 50; i++) {
+          // Reduce number of fireworks
+          const firework = document.createElement("div");
+          firework.classList.add("firework");
+          const size = Math.random() * (64 - 8) + 8; // Random size between 8px and 64px
+          firework.style.width = size + "px";
+          firework.style.height = size + "px";
+          firework.style.top = Math.random() * 100 + "vh";
+          firework.style.left = Math.random() * 100 + "vw";
+          firework.style.backgroundColor = getRandomColor();
+          firework.style.setProperty("--i", Math.random());
+          firework.id = "firework" + i;
+          document.body.appendChild(firework);
+        }
+      }
+
+      function clearFireworks() {
+        const fireworks = document.querySelectorAll(".firework");
+        fireworks.forEach((firework) => firework.remove());
+      }
+
+      function getRandomColor() {
+        const letters = "0123456789ABCDEF";
+        let color = "#";
+        for (let i = 0; i < 6; i++) {
+          color += letters[Math.floor(Math.random() * 16)];
+        }
+        return color;
+      }
+
+      initGame();
+    </script>
+  </body>
+</html>
