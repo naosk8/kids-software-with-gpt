@@ -8,10 +8,12 @@ This collection of apps represents the creativity and innovation of young minds,
 
 ## Available Apps
 
+Top Page: https://naosk8.github.io/kids-software-with-gpt
+
 ### Princess Matching Game
 A delightful memory game where players match pairs of princesses. This game is perfect for memory training and provides endless fun!
 
-- [Play Princess Matching Game](https://yourusername.github.io/repo-name/princess-matching-game.html)
+- [Play Princess Matching Game](https://naosk8.github.io/kids-software-with-gpt/princess-matching-game/index.html)
 
 <!-- Add descriptions and links for additional apps here -->
 
