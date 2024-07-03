@@ -68,8 +68,6 @@ h2 {
 }
 .card.matched {
   pointer-events: none;
-}
-.card.matched {
   box-shadow: inset 0 0 20px #71dc43;
 }
 .card img {
