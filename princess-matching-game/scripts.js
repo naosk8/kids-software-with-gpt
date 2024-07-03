@@ -125,9 +125,20 @@ function initGame() {
 function createCard(image) {
     const card = document.createElement("div");
     card.classList.add("card");
+
+    const front = document.createElement("div");
+    front.classList.add("front");
+    front.style.backgroundColor = '#fff'; // フロントカードの背景色
+
+    const back = document.createElement("div");
+    back.classList.add("back");
+
     const img = document.createElement("img");
     img.src = image;
-    card.appendChild(img);
+    back.appendChild(img);
+
+    card.appendChild(front);
+    card.appendChild(back);
 
     card.addEventListener("click", () => {
         if (lockBoard) return;
