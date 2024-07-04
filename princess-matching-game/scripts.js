@@ -34,12 +34,14 @@ const gameBoard = document.getElementById("game-board");
 const playerBoard = document.getElementById("player-board");
 const popup = document.getElementById("popup");
 
-
 const fireworksContainer = document.getElementById('fireworks');
 const launchFirework = () => {
     const layers = 3; // 同心円の層の数
     const particlesPerLayer = 30; // 各層のパーティクル数
     const numberOfFireworks = 6; // 同時に発生させる花火の数
+
+    const baseParticle = document.createElement('div');
+    baseParticle.classList.add('firework');
 
     for (let n = 0; n < numberOfFireworks; n++) {
         const baseHue = Math.random() * 360; // 基本色相
@@ -56,8 +58,7 @@ const launchFirework = () => {
                 const x = Math.cos(angle) * radius;
                 const y = Math.sin(angle) * radius;
 
-                const particle = document.createElement('div');
-                particle.classList.add('firework'); // クラス名を 'particle' から 'firework' に修正
+                const particle = baseParticle.cloneNode();
                 particle.style.background = color;
                 fireworksContainer.appendChild(particle);
 
@@ -82,7 +83,6 @@ const launchFirework = () => {
 function createFireworks() {
     launchFirework();
     fireworksTimer = setInterval(launchFirework, 2000); // 2秒ごとに花火を打ち上げ
-    // fireworksContainer の背景色をrgba(0, 0, 0, 0.5)に変更
     fireworksContainer.style.backgroundColor = 'rgba(0, 0, 0, 0.8)';
 }
 function stopFireworks() {
@@ -122,23 +122,24 @@ function initGame() {
     resetGame();
 }
 
+const baseCard = document.createElement("div");
+baseCard.classList.add("card");
+
+const baseFront = document.createElement("div");
+baseFront.classList.add("front");
+baseFront.style.backgroundColor = '#fff';
+
+const baseBack = document.createElement("div");
+baseBack.classList.add("back");
+
+baseCard.appendChild(baseFront.cloneNode());
+baseCard.appendChild(baseBack.cloneNode());
+
 function createCard(image) {
-    const card = document.createElement("div");
-    card.classList.add("card");
-
-    const front = document.createElement("div");
-    front.classList.add("front");
-    front.style.backgroundColor = '#fff'; // フロントカードの背景色
-
-    const back = document.createElement("div");
-    back.classList.add("back");
-
+    const card = baseCard.cloneNode(true);
     const img = document.createElement("img");
     img.src = image;
-    back.appendChild(img);
-
-    card.appendChild(front);
-    card.appendChild(back);
+    card.querySelector(".back").appendChild(img);
 
     card.addEventListener("click", () => {
         if (lockBoard) return;
