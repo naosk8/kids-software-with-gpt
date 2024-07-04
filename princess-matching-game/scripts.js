@@ -12,7 +12,10 @@ document.addEventListener("DOMContentLoaded", () => {
     initGame();
     lockBoard = true;
     setTimeout(() => {
-        numPlayers = parseInt(prompt("Enter the number of players (1-4):", "2"));
+        while (true) {
+            numPlayers = parseInt(prompt("Enter the number of players (1-4):", "2"), 10);
+            if (numPlayers >= 1 && numPlayers <= 4) break;
+        }
         for (let i = 0; i < numPlayers; i++) {
             players.push({ score: 0 });
             const playerDiv = document.createElement("div");
