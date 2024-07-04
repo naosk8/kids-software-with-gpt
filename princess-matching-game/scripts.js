@@ -188,6 +188,7 @@ function createCard(image) {
 }
 
 function checkForMatch() {
+    lockBoard = true;
     if (firstCard.innerHTML === secondCard.innerHTML) {
         // flipが完了するまで待つ (Mobile Safariでの演出不具合を防ぐため)
         setTimeout(() => {
@@ -202,7 +203,6 @@ function checkForMatch() {
             checkGameEnd();
         }, 500);
     } else {
-        lockBoard = true;
         setTimeout(() => {
             if (!!firstCard) {
                 firstCard.classList.remove("flipped");
