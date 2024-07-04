@@ -252,3 +252,26 @@ h2 {
   margin: 12px 0; /* Reduce margins for better spacing */
   white-space: pre-line;
 }
+
+/* Start Button Styles */
+.start-button {
+  display: block;
+  margin: 8px auto 32px;
+  padding: 10px 20px;
+  font-size: 16px;
+  color: #fff;
+  background-color: #4b0082; /* Dark purple */
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s;
+}
+
+.start-button:hover {
+  background-color: #7a1ba1; /* Lighter purple */
+}
+
+.start-button:active {
+  background-color: #3a0072; /* Darker purple */
+}

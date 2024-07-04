@@ -1,9 +1,10 @@
-let lockBoard = false;
+let lockBoard = true;
 let fireworksTimer = null;
 document.addEventListener("DOMContentLoaded", () => {
     const hamburgerIcon = document.getElementById("hamburger-icon");
     const menuContent = document.getElementById("menu-content");
     const backToList = document.getElementById("back-to-list");
+    const startButton = document.getElementById("start-button");
 
     const testButton = document.getElementById("test-fireworks");
     testButton?.addEventListener("click", () => {
@@ -22,12 +23,17 @@ document.addEventListener("DOMContentLoaded", () => {
         window.location.href = "../index.html"; // Adjust the path as needed
     });
 
-    initGame();
-    lockBoard = true;
-    setTimeout(() => {
+    startButton.addEventListener("click", () => {
+        lockBoard = true;
         while (true) {
             numPlayers = parseInt(prompt("Enter the number of players (1-4):", "2"), 10);
+            if (isNaN(numPlayers)) {
+                break;
+            }
             if (numPlayers >= 1 && numPlayers <= 4) break;
+        }
+        if (isNaN(numPlayers)) {
+            return;
         }
         for (let i = 0; i < numPlayers; i++) {
             players.push({ score: 0 });
@@ -39,8 +45,12 @@ document.addEventListener("DOMContentLoaded", () => {
         }
         document.getElementById(`player${currentPlayer}`).classList.add("active-player");
         lockBoard = false;
-    }, 2000);
+        startButton.remove(); // Remove the start button after starting the game
+    });
+
+    initGame();
 });
+
 
 const images = [
     "princess/1.png",
