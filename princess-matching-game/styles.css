@@ -109,6 +109,7 @@ h2 {
 }
 .happy {
   animation: happyAnimation 0.5s ease;
+  animation-fill-mode: forwards; /* アニメーション終了後の状態を保持 */
 }
 .player-board {
   display: flex;
