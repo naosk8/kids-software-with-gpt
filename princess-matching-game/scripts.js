@@ -163,23 +163,18 @@ function createCard(image) {
 
 function checkForMatch() {
     if (firstCard.innerHTML === secondCard.innerHTML) {
-        firstCard.classList.add("matched");
-        secondCard.classList.add("matched");
-        firstCard.classList.add("happy");
-        secondCard.classList.add("happy");
+        // flipが完了するまで待つ (Mobile Safariでの演出不具合を防ぐため)
         setTimeout(() => {
-            if (!!firstCard) {
-                firstCard.classList.remove("happy");
-            }
-            if (!!secondCard) {
-                secondCard.classList.remove("happy");
-            }
+            firstCard.classList.add("matched");
+            secondCard.classList.add("matched");
+            firstCard.classList.add("happy");
+            secondCard.classList.add("happy");
+            players[currentPlayer].score += 2;
+            document.getElementById(`player${currentPlayer}-score`).textContent =
+                players[currentPlayer].score;
+            resetBoard();
+            checkGameEnd();
         }, 500);
-        players[currentPlayer].score += 2;
-        document.getElementById(`player${currentPlayer}-score`).textContent =
-            players[currentPlayer].score;
-        resetBoard();
-        checkGameEnd();
     } else {
         lockBoard = true;
         setTimeout(() => {
