@@ -88,22 +88,26 @@ const launchFirework = () => {
         const centerX = Math.random() * window.innerWidth;
         const centerY = Math.random() * window.innerHeight;
 
+        const baseParticleForFirework = baseParticle.cloneNode();
+        baseParticleForFirework.style.left = `calc(${centerX}px - 2.5px)`;
+        baseParticleForFirework.style.top = `calc(${centerY}px - 2.5px)`;
+
         for (let j = 0; j < layers; j++) {
             const radius = 100 + j * 50; // 各層の半径を増加
             const color = `hsl(${baseHue + j * 30}, 100%, 50%)`; // 色を変化させる
             const duration = 1500 + j * 300; // 各層のアニメーション時間を増加
+
+            const baseParticleForLayer = baseParticleForFirework.cloneNode();
+            baseParticleForLayer.style.background = color;
 
             for (let i = 0; i < particlesPerLayer; i++) {
                 const angle = (Math.PI * 2 / particlesPerLayer) * i;
                 const x = Math.cos(angle) * radius;
                 const y = Math.sin(angle) * radius;
 
-                const particle = baseParticle.cloneNode();
-                particle.style.background = color;
+                const particle = baseParticleForLayer.cloneNode();
                 fireworksContainer.appendChild(particle);
 
-                particle.style.left = `calc(${centerX}px - 2.5px)`;
-                particle.style.top = `calc(${centerY}px - 2.5px)`;
                 particle.animate([
                     { transform: `translate(0, 0) scale(0)`, opacity: 1, offset: 0 },
                     { transform: `translate(${x}px, ${y}px) scale(1.5)`, opacity: 0, offset: 1 }
@@ -112,17 +116,17 @@ const launchFirework = () => {
                     easing: 'ease-out',
                     fill: 'forwards'
                 });
-
-                particle.onanimationend = () => {
+                setTimeout(() => {
                     particle.remove();
-                };
+                    particle = null;
+                }, duration);
             }
         }
     }
 };
 function createFireworks() {
     launchFirework();
-    fireworksTimer = setInterval(launchFirework, 2000); // 2秒ごとに花火を打ち上げ
+    fireworksTimer = setInterval(launchFirework, 3000); // 3秒ごとに花火を打ち上げ
     fireworksContainer.style.backgroundColor = 'rgba(0, 0, 0, 0.8)';
 }
 function stopFireworks() {
