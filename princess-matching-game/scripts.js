@@ -1,3 +1,4 @@
+let lockBoard = false;
 let fireworksTimer = null;
 document.addEventListener("DOMContentLoaded", () => {
     const testButton = document.getElementById("test-fireworks");
@@ -9,6 +10,20 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
     initGame();
+    lockBoard = true;
+    setTimeout(() => {
+        numPlayers = parseInt(prompt("Enter the number of players (1-4):", "2"));
+        for (let i = 0; i < numPlayers; i++) {
+            players.push({ score: 0 });
+            const playerDiv = document.createElement("div");
+            playerDiv.classList.add("player");
+            playerDiv.id = `player${i}`;
+            playerDiv.innerHTML = `<h2>Player ${i + 1}</h2><p>Score: <span id="player${i}-score">0</span></p>`;
+            playerBoard.appendChild(playerDiv);
+        }
+        document.getElementById(`player${currentPlayer}`).classList.add("active-player");
+        lockBoard = false;
+    }, 2000);
 });
 
 const images = [
@@ -25,10 +40,9 @@ const images = [
 ];
 const cardImages = [...images, ...images]; // Create 2 sets
 let shuffledImages, firstCard, secondCard;
-let lockBoard = false;
 let currentPlayer = 0;
 const players = [];
-const numPlayers = parseInt(prompt("Enter the number of players (1-4):", "2"));
+let numPlayers;
 
 const gameBoard = document.getElementById("game-board");
 const playerBoard = document.getElementById("player-board");
@@ -108,17 +122,6 @@ function hidePopup() {
 }
 
 function initGame() {
-    for (let i = 0; i < numPlayers; i++) {
-        players.push({ score: 0 });
-        const playerDiv = document.createElement("div");
-        playerDiv.classList.add("player");
-        playerDiv.id = `player${i}`;
-        playerDiv.innerHTML = `<h2>Player ${i + 1}</h2><p>Score: <span id="player${i}-score">0</span></p>`;
-        playerBoard.appendChild(playerDiv);
-    }
-
-    document.getElementById(`player${currentPlayer}`).classList.add("active-player");
-
     resetGame();
 }
 
