@@ -1,6 +1,10 @@
 let lockBoard = false;
 let fireworksTimer = null;
 document.addEventListener("DOMContentLoaded", () => {
+    const hamburgerIcon = document.getElementById("hamburger-icon");
+    const menuContent = document.getElementById("menu-content");
+    const backToList = document.getElementById("back-to-list");
+
     const testButton = document.getElementById("test-fireworks");
     testButton?.addEventListener("click", () => {
         if (fireworksTimer) {
@@ -9,6 +13,15 @@ document.addEventListener("DOMContentLoaded", () => {
             createFireworks();
         }
     });
+
+    hamburgerIcon.addEventListener("click", () => {
+        menuContent.style.display = menuContent.style.display === "block" ? "none" : "block";
+    });
+
+    backToList.addEventListener("click", () => {
+        window.location.href = "../index.html"; // Adjust the path as needed
+    });
+
     initGame();
     lockBoard = true;
     setTimeout(() => {

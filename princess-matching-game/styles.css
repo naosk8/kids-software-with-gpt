@@ -187,11 +187,68 @@ h2 {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Shadow for popup */
   color: #5d4b6a; /* ポップアップの文字色 */
 }
-.info {
+
+/* Hamburger Menu Styles */
+.hamburger-menu {
   position: absolute;
-  bottom: 5px;
-  width: 100%;
-  text-align: center;
-  font-size: 10px; /* Smaller font size */
+  top: 10px;
+  left: 16px;
+  z-index: 10000;
+}
+
+.hamburger-icon {
+  font-size: 30px;
+  cursor: pointer;
+  color: #4b0082; /* Dark purple */
+}
+
+.menu-content {
+  display: none;
+  position: absolute;
+  top: 40px;
+  left: 0;
+  background-color: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+  overflow: hidden;
+  width: 220px; /* Set a fixed width for the menu */
+}
+
+.menu-content ul {
+  list-style: none;
+  margin: 0;
+  padding: 10px;
+}
+
+.menu-content li {
+  padding: 10px 4px; /* Reduced padding for smaller font size */
+}
+
+.menu-content li a {
+  text-decoration: none;
+  color: #4b0082; /* Dark purple */
+  display: block;
+  font-size: 1rem;
+  white-space: nowrap; /* Prevent line breaks */
+}
+
+.menu-content li:hover {
+  background-color: #f0e6f6; /* Light purple */
+}
+
+.menu-content .info {
+  padding: 10px;
+  font-size: 0.75rem;
+  @media screen and (max-width: 768px){
+    font-size: 1rem;
+  }
   color: #555;
+  border-top: 1px solid #ddd; /* Add a top border to separate the credits */
+  line-height: 1.4; /* Improve readability */
+}
+
+.menu-content .info p {
+  padding: 0 4px;
+  margin: 12px 0; /* Reduce margins for better spacing */
+  white-space: pre-line;
 }

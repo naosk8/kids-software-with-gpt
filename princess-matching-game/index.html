@@ -3,18 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Card Game</title>
+    <title>Princess Matching</title>
     <link rel="icon" href="favicon.ico" type="image/x-icon">
     <link rel="manifest" href="manifest.json">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <h1>Princess Matching Game</h1>
+    <h1>Princess Matching</h1>
     <div class="player-board" id="player-board"></div>
     <div class="game-board" id="game-board"></div>
     <div id="popup" class="popup" style="display: none"></div>
     <!-- <button id="test-fireworks">Test Fireworks</button>  -->
     <div id="fireworks"></div>
+
+    <div class="hamburger-menu" id="hamburger-menu">
+        <div class="hamburger-icon" id="hamburger-icon">&#9776;</div>
+        <div class="menu-content" id="menu-content">
+            <ul>
+                <li><a href="#" id="back-to-list">Back to Apps</a></li>
+                <li><a href="https://github.com/naosk8/kids-software-with-gpt/tree/main/princess-matching-game" target="_blank">Github</a></li>
+            </ul>
+            <div class="info">
+                <p><b>Created by</b>
+                    <span>Sara on July 3rd, 2024</span></p>
+                <p><b>Concept</b>
+                    <span>Concentration featuring adorable princesses</span></p>
+                <p><b>Creative Engine</b>
+                    <span>HTML/CSS/JS: GPT-4o<span>
+                    <span>Images: Canva (AI Image Gen)</span></p>
+            </div>
+        </div>
+    </div>
+
     <script src="scripts.js"></script>
     <script>
       if ('serviceWorker' in navigator) {
