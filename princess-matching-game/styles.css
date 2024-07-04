@@ -73,6 +73,9 @@ h2 {
   background: linear-gradient(135deg, #f06, #48f); /* Gradient background for back */
 }
 .card .back {
+  width: 90%;
+  height: 90%;
+  overflow: hidden;
   transform: rotateY(180deg);
 }
 .card.flipped {
@@ -89,8 +92,8 @@ h2 {
   box-shadow: inset 0 0 20px #71dc43;
 }
 .card img {
-  width: 90%;
-  height: 90%;
+  width: 150%;
+  height: 150%;
   object-fit: cover;
 }
 @keyframes happyAnimation {
