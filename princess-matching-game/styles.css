@@ -46,12 +46,14 @@ h2 {
   position: relative;
   transition: transform 0.6s, box-shadow 0.3s; /* Transition for transform and shadow */
   transform-style: preserve-3d;
+  user-select: none; /* ユーザー選択を無効にする */
+  -webkit-user-drag: none; /* ドラッグを無効にする (WebKitブラウザ向け) */
+  -moz-user-select: none; /* ユーザー選択を無効にする (Firefox向け) */
+  -ms-user-select: none; /* ユーザー選択を無効にする (IE向け) */
+  user-drag: none; /* ドラッグを無効にする */
 }
 .card:hover {
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); /* Shadow effect on hover */
-}
-.card.flipped {
-  transform: rotateY(180deg);
 }
 .card .front, .card .back {
   position: absolute;
@@ -95,6 +97,7 @@ h2 {
   width: 150%;
   height: 150%;
   object-fit: cover;
+  pointer-events: none; /* 画像へのポインターイベントを無効にする */
 }
 @keyframes happyAnimation {
   0% {
