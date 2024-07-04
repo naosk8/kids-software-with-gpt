@@ -53,7 +53,7 @@ const popup = document.getElementById("popup");
 
 const fireworksContainer = document.getElementById('fireworks');
 const launchFirework = () => {
-    const layers = 3; // 同心円の層の数
+    const layers = 5; // 同心円の層の数
     const particlesPerLayer = 30; // 各層のパーティクル数
     const numberOfFireworks = 6; // 同時に発生させる花火の数
 
