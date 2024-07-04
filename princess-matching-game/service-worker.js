@@ -1,4 +1,4 @@
-const CACHE_NAME = 'princess-matching-game-cache-v1';
+const CACHE_NAME = 'princess-matching-game-cache-v1.1';
 const domain = 'https://naosk8.github.io';
 const urlsToCache = [
     '/kids-software-with-gpt/princess-matching-game/',
