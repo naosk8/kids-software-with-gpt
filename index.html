@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Our Creative Apps</title>
+    <title>Kids' ideas powered by AI Engines | naosk8</title>
     <style>
         body {
             font-family: 'Arial', sans-serif;
@@ -15,45 +15,89 @@
         header {
             background-color: #4CAF50;
             color: white;
-            padding: 1em 0;
+            padding: 0.5rem 0;
             text-align: center;
+        }
+        header h1 {
+            margin: 1rem 0;
+        }
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: right;
+            padding: 1rem;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            width: 100%;
+        }
+        footer a {
+            color: white;
+            text-decoration: none;
+            margin-right: 2rem;
         }
         main {
             display: flex;
             flex-direction: column;
             align-items: center;
             margin: 20px;
+            padding-bottom: 40px;
         }
         .intro {
             max-width: 800px;
+            border: 1px solid #ddd;
+            border-radius: 16px;
             text-align: center;
             margin-bottom: 30px;
+            color: #666;
+        }
+        .intro h2 {
+            font-weight: bolder;
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+        }
+        .intro p {
+            margin: 16px;
         }
         .apps {
-            display: grid;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 20px;
             width: 100%;
             max-width: 1200px;
         }
         .app-card {
+            display: flex;
+            align-items: center;
             background-color: white;
             border-radius: 8px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             overflow: hidden;
-            text-align: center;
-            padding: 20px;
+            text-align: left;
+            padding: 12px;
+            max-width: 480px;
+        }
+        .app-card img {
+            width: 120px;
+            aspect-ratio: 1/1;
+            object-fit: cover;
+            max-width: 30%;
+            border-radius: 16px;
+            margin-right: 20px;
         }
         .app-card h3 {
             margin: 0;
-            color: #4CAF50;
+            color: #333;
         }
         .app-card p {
             margin: 10px 0;
         }
         .app-card a {
             color: #4CAF50;
-            text-decoration: none;
+            text-decoration: underline;
             font-weight: bold;
         }
         .app-card a:hover {
@@ -63,7 +107,7 @@
 </head>
 <body>
     <header>
-        <h1>Our Creative Apps</h1>
+        <h1>Kids' ideas powered by AI Engines</h1>
     </header>
     <main>
         <section class="intro">
@@ -72,12 +116,18 @@
         </section>
         <section class="apps">
             <div class="app-card">
-                <h3>Princess Matching Game</h3>
-                <p>A delightful game where you match pairs of princesses. Perfect for memory training and fun!</p>
-                <a href="./princess-matching-game/index.html">Play Now</a>
+                <img src="./princess-matching-game/icons/icon-192x192.png" />
+                <div>
+                    <h3>Princess Matching Game</h3>
+                    <p>A delightful game where you match pairs of princesses. Perfect for memory training and fun!</p>
+                    <a href="./princess-matching-game/index.html">▶ Play Now</a>
+                </div>
             </div>
             <!-- Add more app cards here as you create more apps -->
         </section>
     </main>
+    <footer>
+        <a target="_blank" href="https://github.com/naosk8/kids-software-with-gpt">github.com/naosk8/kids-software-with-gpt</a>
+    </footer>
 </body>
 </html>
